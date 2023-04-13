@@ -64,7 +64,15 @@
 		D943653929E10C2200FE792F /* jpeg_helper */ = {
 			isa = PBXGroup;
 			children = (
+				D949115B29E8508C004DFE4B /* jpeg_helper */,
 				D943653A29E10C2200FE792F /* main.cpp */,
+			);
+			path = jpeg_helper;
+			sourceTree = "<group>";
+		};
+		D949115B29E8508C004DFE4B /* jpeg_helper */ = {
+			isa = PBXGroup;
+			children = (
 				D9549A4829E10FBC002B2A60 /* jpeg_helper.cpp */,
 				D9549A4929E10FBC002B2A60 /* jpeg_helper.hpp */,
 			);
