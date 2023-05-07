@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F3AD8E72A04E5FE003A6A72 /* ppm_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F3AD8E52A04E5FE003A6A72 /* ppm_helper.cpp */; };
+		8FE928AB2A052BC10018C4CE /* colorspace_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FE928A92A052BC10018C4CE /* colorspace_helper.cpp */; };
 		D943653B29E10C2200FE792F /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D943653A29E10C2200FE792F /* main.cpp */; };
 		D9549A4A29E10FBC002B2A60 /* jpeg_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9549A4829E10FBC002B2A60 /* jpeg_helper.cpp */; };
 		D989A2C829E10CA500C8A45E /* libjpeg.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D989A2C729E10CA500C8A45E /* libjpeg.9.dylib */; };
@@ -25,6 +27,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8F3AD8E52A04E5FE003A6A72 /* ppm_helper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ppm_helper.cpp; sourceTree = "<group>"; };
+		8F3AD8E62A04E5FE003A6A72 /* ppm_helper.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ppm_helper.hpp; sourceTree = "<group>"; };
+		8FE928A92A052BC10018C4CE /* colorspace_helper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = colorspace_helper.cpp; sourceTree = "<group>"; };
+		8FE928AA2A052BC10018C4CE /* colorspace_helper.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = colorspace_helper.hpp; sourceTree = "<group>"; };
 		D943653729E10C2200FE792F /* jpeg_helper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = jpeg_helper; sourceTree = BUILT_PRODUCTS_DIR; };
 		D943653A29E10C2200FE792F /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		D9549A4829E10FBC002B2A60 /* jpeg_helper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = jpeg_helper.cpp; sourceTree = "<group>"; };
@@ -44,6 +50,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8F3AD8E42A04E5E0003A6A72 /* ppm_helper */ = {
+			isa = PBXGroup;
+			children = (
+				8F3AD8E52A04E5FE003A6A72 /* ppm_helper.cpp */,
+				8F3AD8E62A04E5FE003A6A72 /* ppm_helper.hpp */,
+			);
+			path = ppm_helper;
+			sourceTree = "<group>";
+		};
+		8FE928A82A052BA30018C4CE /* colorspace_helper */ = {
+			isa = PBXGroup;
+			children = (
+				8FE928A92A052BC10018C4CE /* colorspace_helper.cpp */,
+				8FE928AA2A052BC10018C4CE /* colorspace_helper.hpp */,
+			);
+			path = colorspace_helper;
+			sourceTree = "<group>";
+		};
 		D943652E29E10C2200FE792F = {
 			isa = PBXGroup;
 			children = (
@@ -64,7 +88,9 @@
 		D943653929E10C2200FE792F /* jpeg_helper */ = {
 			isa = PBXGroup;
 			children = (
+				8FE928A82A052BA30018C4CE /* colorspace_helper */,
 				D949115B29E8508C004DFE4B /* jpeg_helper */,
+				8F3AD8E42A04E5E0003A6A72 /* ppm_helper */,
 				D943653A29E10C2200FE792F /* main.cpp */,
 			);
 			path = jpeg_helper;
@@ -144,6 +170,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FE928AB2A052BC10018C4CE /* colorspace_helper.cpp in Sources */,
+				8F3AD8E72A04E5FE003A6A72 /* ppm_helper.cpp in Sources */,
 				D943653B29E10C2200FE792F /* main.cpp in Sources */,
 				D9549A4A29E10FBC002B2A60 /* jpeg_helper.cpp in Sources */,
 			);

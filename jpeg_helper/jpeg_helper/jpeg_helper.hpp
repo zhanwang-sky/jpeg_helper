@@ -10,10 +10,16 @@
 
 namespace jpeg_helper {
 
-int compress_jpeg(const char* filename, int width, int height, unsigned char* buf);
+enum color_space {
+  JHCS_RGB,
+  JHCS_YCC
+};
+
+int compress_jpeg(const char* filename, int width, int height,
+                  unsigned char* buf, color_space cs = JHCS_RGB);
 
 int decompress_jpeg(const char* filename, int* width, int* height,
-                    unsigned char* buf, int bufsz);
+                    unsigned char* buf, int bufsz, color_space cs = JHCS_RGB);
 
 }
 

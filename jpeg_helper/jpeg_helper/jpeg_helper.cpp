@@ -5,12 +5,12 @@
 //  Created by jichen on 2023/4/8.
 //
 
+#include <climits>
 #include <csetjmp>
 #include <cstdio>
 #include <jpeglib.h>
 #include "jpeg_helper.hpp"
 
-#define JH_COLOR_SPACE JCS_RGB
 #define JH_COLOR_COMPONENTS 3
 
 struct jh_error_mgr {
@@ -35,7 +35,7 @@ static void jh_error_exit(j_common_ptr cinfo) {
 }
 
 int jpeg_helper::compress_jpeg(const char* filename, int width, int height,
-                               unsigned char* buf) {
+                               unsigned char* buf, color_space cs) {
   JDIMENSION row_stride = 0;
   JDIMENSION realsz = 0;
   FILE* p_file = NULL;
@@ -44,14 +44,14 @@ int jpeg_helper::compress_jpeg(const char* filename, int width, int height,
   struct jh_error_mgr errmgr = {0};
 
   /* Sanity check */
-  if (!filename || !width || !height || !buf) {
-    return -(__INT_MAX__);
+  if (!filename || width <= 0 || height <= 0 || !buf) {
+    return INT_MIN;
   }
 
   /* Open file for writing */
   p_file = fopen(filename, "wb");
   if (!p_file) {
-    return -(__INT_MAX__ - 1);
+    return INT_MIN + 1;
   }
 
   /* We set up the normal JPEG error routines, then override error_exit. */
@@ -75,7 +75,7 @@ int jpeg_helper::compress_jpeg(const char* filename, int width, int height,
   cinfo.image_width = width;
   cinfo.image_height = height;
   cinfo.input_components = JH_COLOR_COMPONENTS;
-  cinfo.in_color_space = JH_COLOR_SPACE;
+  cinfo.in_color_space = (cs == JHCS_RGB) ? JCS_RGB : JCS_YCbCr;
   jpeg_set_defaults(&cinfo);
 
   /* Now you can set any non-default parameters you wish to. */
@@ -101,7 +101,7 @@ int jpeg_helper::compress_jpeg(const char* filename, int width, int height,
 }
 
 int jpeg_helper::decompress_jpeg(const char* filename, int* width, int* height,
-                                 unsigned char* buf, int bufsz) {
+                                 unsigned char* buf, int bufsz, color_space cs) {
   JDIMENSION row_stride = 0;
   JDIMENSION realsz = 0;
   FILE* p_file = NULL;
@@ -110,14 +110,14 @@ int jpeg_helper::decompress_jpeg(const char* filename, int* width, int* height,
   struct jh_error_mgr errmgr = {0};
 
   /* Sanity check */
-  if (!filename || !width || !height || !buf || !bufsz) {
-    return -(__INT_MAX__);
+  if (!filename || !width || !height || !buf || bufsz <= 0) {
+    return INT_MIN;
   }
 
   /* Open JPEG file for reading */
   p_file = fopen(filename, "rb");
   if (!p_file) {
-    return -(__INT_MAX__ - 1);
+    return INT_MIN + 1;
   }
 
   /* We set up the normal JPEG error routines, then override error_exit. */
@@ -142,16 +142,11 @@ int jpeg_helper::decompress_jpeg(const char* filename, int* width, int* height,
    * See libjpeg.txt for more info.
    */
 
-  // debug
-  fprintf(stderr, "image_width=%u,image_height=%u,components=%d,color_space=%d\n",
-          cinfo.image_width, cinfo.image_height,
-          cinfo.num_components, cinfo.jpeg_color_space);
-
   /* Decompression processing parameters --- these fields must be set before
    * calling jpeg_start_decompress().  Note that jpeg_read_header() initializes
    * them to default values.
    */
-  cinfo.out_color_space = JH_COLOR_SPACE;
+  cinfo.out_color_space = (cs == JHCS_RGB) ? JCS_RGB : JCS_YCbCr;
 
   jpeg_start_decompress(&cinfo);
   /* We can ignore the return value since suspension is not possible
