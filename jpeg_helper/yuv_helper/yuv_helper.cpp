@@ -2,7 +2,7 @@
 //  yuv_helper.cpp
 //  jpeg_helper
 //
-//  Created by jichne on 2023/6/18.
+//  Created by jichen on 2023/6/18.
 //
 
 #include <climits>
