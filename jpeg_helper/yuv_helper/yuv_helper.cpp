@@ -95,12 +95,13 @@ void yuv_helper::RGB_to_PlanarYUV(color_spec cs, pixel_format fmt,
   float d = color_matrices[cs][3];
   float e = color_matrices[cs][4];
   float R, G, B, Y, Cb, Cr;
+  int idx = 0;
 
   for (int i = 0; i < height; ++i) {
     for (int j = 0; j < width; ++j) {
-      R = (float) rgb_buf[i * width + j];
-      G = (float) rgb_buf[i * width + j + 1];
-      B = (float) rgb_buf[i * width + j + 2];
+      R = (float) rgb_buf[idx];
+      G = (float) rgb_buf[idx + 1];
+      B = (float) rgb_buf[idx + 2];
 
       Y = a * R + b * G + c * B;
       planes[0][i * strides[0] + j] = saturate_cast(Y);
@@ -112,6 +113,8 @@ void yuv_helper::RGB_to_PlanarYUV(color_spec cs, pixel_format fmt,
         planes[1][(i / 2) * strides[1] + (j / 2)] = saturate_cast(Cb + 128.f);
         planes[2][(i / 2) * strides[2] + (j / 2)] = saturate_cast(Cr + 128.f);
       }
+
+      idx += 3;
     }
   }
 }
@@ -127,6 +130,7 @@ void yuv_helper::PlanarYUV_to_RGB(color_spec cs, pixel_format fmt,
   float d = color_matrices[cs][3];
   float e = color_matrices[cs][4];
   float Y, Cb, Cr, R, G, B;
+  int idx = 0;
 
   for (int i = 0; i < height; ++i) {
     for (int j = 0; j < width; ++j) {
@@ -139,9 +143,11 @@ void yuv_helper::PlanarYUV_to_RGB(color_spec cs, pixel_format fmt,
       G = Y - (a * e / b) * Cr - (c * d / b) * Cb;
       B = Y + d * Cb;
 
-      rgb_buf[i * width + j] = saturate_cast(R);
-      rgb_buf[i * width + j + 1] = saturate_cast(G);
-      rgb_buf[i * width + j + 2] = saturate_cast(B);
+      rgb_buf[idx] = saturate_cast(R);
+      rgb_buf[idx + 1] = saturate_cast(G);
+      rgb_buf[idx + 2] = saturate_cast(B);
+
+      idx += 3;
     }
   }
 }
