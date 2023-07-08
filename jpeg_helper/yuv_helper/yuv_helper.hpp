@@ -33,11 +33,13 @@ void RGB_to_PackedYUV(color_spec cs, pixel_format fmt, int width, int height,
 void PackedYUV_to_RGB(color_spec cs, pixel_format fmt, int width, int height,
                       const unsigned char* yuv_buf, unsigned char* rgb_buf);
 
-void RGB_to_PlanarYUV(color_spec cs, pixel_format fmt, int width, int height,
+void RGB_to_PlanarYUV(color_spec cs, pixel_format fmt, bool full_range,
+                      int width, int height,
                       const unsigned char* rgb_buf,
                       const int strides[], unsigned char* planes[]);
 
-void PlanarYUV_to_RGB(color_spec cs, pixel_format fmt, int width, int height,
+void PlanarYUV_to_RGB(color_spec cs, pixel_format fmt, bool full_range,
+                      int width, int height,
                       const int strides[], const unsigned char* planes[],
                       unsigned char* rgb_buf);
 
