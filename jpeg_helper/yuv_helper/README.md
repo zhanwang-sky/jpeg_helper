@@ -26,3 +26,13 @@ B = Y + d * Cb
 
 *d = (1 - c) / 0.5*\
 *e = (1 - a) / 0.5*
+
+##### Quantization
+
+*(not applicable for JPEG)*
+
+$D_Y' = INT[(219E_Y' + 16) \cdotp 2^{n-8}]$
+
+$D_{CB}' = INT[(224E_{CB}' + 128) \cdotp 2^{n-8}]$
+
+$D_{CR}' = INT[(224E_{CR}' + 128) \cdotp 2^{n-8}]$
