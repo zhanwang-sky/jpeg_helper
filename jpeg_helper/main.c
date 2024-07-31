@@ -6,9 +6,36 @@
 //
 
 #include <stdio.h>
+#include <stdlib.h>
+#include "jpeg_helper.h"
+
+unsigned char buf[8192 * 6144 * 3];
 
 int main(int argc, char* argv[]) {
-  // insert code here...
-  printf("Hello, World!\n");
+  int w, h;
+  int rc = 0;
+
+  if (argc != 3) {
+    fprintf(stderr, "Usage: ./jpeg_helper <input.jpg> <output.jpg>\n");
+    exit(EXIT_FAILURE);
+  }
+
+  rc = jpeg_decompress(argv[1], &w, &h, buf, sizeof(buf));
+  if (rc != 0) {
+    if (rc > 0) {
+      fprintf(stderr, "buffer too small, at least %d bytes required.\n", rc);
+    }
+    fprintf(stderr, "failed to decompress JPEG file.\n");
+    exit(EXIT_FAILURE);
+  }
+
+  printf("dimension: %d * %d\n", w, h);
+
+  rc = jpeg_compress(argv[2], w, h, buf, 95);
+  if (rc != 0) {
+    fprintf(stderr, "failed to compress JPEG file.\n");
+    exit(EXIT_FAILURE);
+  }
+
   return 0;
 }

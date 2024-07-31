@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D92159732C5A29EE002D4E6E /* jpeg_helper.c in Sources */ = {isa = PBXBuildFile; fileRef = D92159722C5A29EE002D4E6E /* jpeg_helper.c */; };
+		D98565FB2C5A24560002167C /* libjpeg.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D98565FA2C5A24560002167C /* libjpeg.9.dylib */; };
 		D9C5C19C2C5A238300928B42 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = D9C5C19B2C5A238300928B42 /* main.c */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +25,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D92159712C5A29EE002D4E6E /* jpeg_helper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jpeg_helper.h; sourceTree = "<group>"; };
+		D92159722C5A29EE002D4E6E /* jpeg_helper.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = jpeg_helper.c; sourceTree = "<group>"; };
+		D98565FA2C5A24560002167C /* libjpeg.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libjpeg.9.dylib; path = /opt/homebrew/Cellar/jpeg/9f/lib/libjpeg.9.dylib; sourceTree = "<group>"; };
 		D9C5C1982C5A238300928B42 /* jpeg_helper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = jpeg_helper; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9C5C19B2C5A238300928B42 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -32,17 +37,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D98565FB2C5A24560002167C /* libjpeg.9.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D92159702C5A29C5002D4E6E /* jpeg_helper */ = {
+			isa = PBXGroup;
+			children = (
+				D92159712C5A29EE002D4E6E /* jpeg_helper.h */,
+				D92159722C5A29EE002D4E6E /* jpeg_helper.c */,
+			);
+			path = jpeg_helper;
+			sourceTree = "<group>";
+		};
+		D98565F92C5A24560002167C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D98565FA2C5A24560002167C /* libjpeg.9.dylib */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D9C5C18F2C5A238300928B42 = {
 			isa = PBXGroup;
 			children = (
 				D9C5C19A2C5A238300928B42 /* jpeg_helper */,
 				D9C5C1992C5A238300928B42 /* Products */,
+				D98565F92C5A24560002167C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -57,6 +81,7 @@
 		D9C5C19A2C5A238300928B42 /* jpeg_helper */ = {
 			isa = PBXGroup;
 			children = (
+				D92159702C5A29C5002D4E6E /* jpeg_helper */,
 				D9C5C19B2C5A238300928B42 /* main.c */,
 			);
 			path = jpeg_helper;
@@ -120,6 +145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9C5C19C2C5A238300928B42 /* main.c in Sources */,
+				D92159732C5A29EE002D4E6E /* jpeg_helper.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,6 +271,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = /opt/homebrew/Cellar/jpeg/9f/include;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/homebrew/Cellar/jpeg/9f/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -253,6 +284,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = /opt/homebrew/Cellar/jpeg/9f/include;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/homebrew/Cellar/jpeg/9f/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
