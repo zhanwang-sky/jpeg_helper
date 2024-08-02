@@ -13,7 +13,6 @@
 
 struct my_error_mgr {
   struct jpeg_error_mgr pub; // "public" fields
-  int msg_code;              // message ID code
   jmp_buf setjmp_buffer;     // for return to caller
 };
 
@@ -22,9 +21,6 @@ typedef struct my_error_mgr* my_error_ptr;
 static void my_error_exit(j_common_ptr cinfo) {
   // cinfo->err really points to a my_error_mgr struct, so coerce pointer.
   my_error_ptr myerr = (my_error_ptr) cinfo->err;
-
-  // Save message code.
-  myerr->msg_code = cinfo->err->msg_code;
 
   // Display the message.
   (*cinfo->err->output_message)(cinfo);
@@ -62,7 +58,7 @@ int jpeg_compress(const char* filename, int width, int height,
     // We need to clean up the JPEG object, close the input file, and return.
     jpeg_destroy_compress(&cinfo);
     fclose(outfile);
-    return -jerr.msg_code;
+    return -jerr.pub.msg_code;
   }
   // Now we can initialize the JPEG compression object.
   jpeg_create_compress(&cinfo);
@@ -142,7 +138,7 @@ int jpeg_decompress(const char* filename, int* width, int* height,
     // We need to clean up the JPEG object, close the input file, and return.
     jpeg_destroy_decompress(&cinfo);
     fclose(infile);
-    return -jerr.msg_code;
+    return -jerr.pub.msg_code;
   }
   // Now we can initialize the JPEG decompression object.
   jpeg_create_decompress(&cinfo);

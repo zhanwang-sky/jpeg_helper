@@ -22,10 +22,7 @@ int main(int argc, char* argv[]) {
 
   rc = jpeg_decompress(argv[1], &w, &h, buf, sizeof(buf));
   if (rc != 0) {
-    if (rc > 0) {
-      fprintf(stderr, "buffer too small, at least %d bytes required.\n", rc);
-    }
-    fprintf(stderr, "failed to decompress JPEG file.\n");
+    fprintf(stderr, "failed to decompress JPEG file, rc=%d\n", rc);
     exit(EXIT_FAILURE);
   }
 
@@ -33,9 +30,11 @@ int main(int argc, char* argv[]) {
 
   rc = jpeg_compress(argv[2], w, h, buf, 95);
   if (rc != 0) {
-    fprintf(stderr, "failed to compress JPEG file.\n");
+    fprintf(stderr, "failed to compress JPEG file, rc=%d\n", rc);
     exit(EXIT_FAILURE);
   }
+
+  printf("Done.\n");
 
   return 0;
 }
